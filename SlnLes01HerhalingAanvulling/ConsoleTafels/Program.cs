@@ -10,39 +10,41 @@ namespace ConsoleTafels
     {
         static void Main(string[] args)
         {
-            DrukTafel(4, 8);
-            DrukTafel(2, 5);
+            Console.WriteLine(DrukTafel(4, 8));
+            Console.WriteLine(DrukTafel(2, 5));
 
-            VraagPositiefgetal();
+            double eersteGetal = VraagPositiefGetal("Geef een getal: ");
+            double tweedeGetal = VraagPositiefGetal("Geef een lengte: ");
+            Console.WriteLine(DrukTafel(eersteGetal, tweedeGetal));
 
             Console.ReadKey();
         }
-        public static void DrukTafel(double getal, double tafel)
+
+        public static string DrukTafel(double getal, double tafel)
         {
-            Console.WriteLine(getal + "x" + tafel + " tafel:");
-            for (int i = 1; i <= tafel; i++)
+            string output = $"{getal}x{tafel} tafel:";
+            for (double i = 1; i <= tafel; i++)
             {
                 double antwoord = getal * i;
-                Console.WriteLine(getal + " x " + i + " = " + antwoord);
+                output += Environment.NewLine + $"{getal} x {i} = {antwoord}";
             }
-            Console.WriteLine();
+            return output + Environment.NewLine;
         }
-        public static void VraagPositiefgetal()
-        {
-            Console.Write("Geef een getal: ");
-            double getal = Convert.ToDouble(Console.ReadLine());
 
-            if (getal <= 0)
+        private static double VraagPositiefGetal(string bericht)
+        {
+            double getal = -1;
+            do
             {
-                Console.Write("Het getal moet positief zijn! ");
-                VraagPositiefgetal();
+                Console.Write(bericht);
+                bool teken = double.TryParse(Console.ReadLine(), out getal);
+                if (!teken || getal < 0)
+                {
+                    Console.WriteLine("Het getal moet positief zijn!");
+                }
             }
-            else
-            {
-                Console.Write("geef de lengte: ");
-                double tafel = Convert.ToDouble(Console.ReadLine());
-                DrukTafel(getal, tafel);
-            }
+            while (getal < 0);
+            return getal;
         }
     }
 }

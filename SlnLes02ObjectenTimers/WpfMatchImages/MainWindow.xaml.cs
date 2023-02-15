@@ -43,7 +43,7 @@ namespace WpfMatchImages
                 bttn = btn;
                 stop.Start();
                 timer.Start();
-                btn.Opacity= 0.5;      
+                btn.Opacity = 0.5;      
                 btn.IsEnabled = false;
             }
             else if (bttn.Tag.ToString() == spel)
@@ -55,20 +55,18 @@ namespace WpfMatchImages
                 }
                 else
                 {
-                    txtSpel.Text = $"Juist! nog {Convert.ToString(teller--)} te gaan";
-                    
+                    txtSpel.Text = $"Juist! nog {Convert.ToString(teller--)} te gaan"; 
                 }
-
                 btn.IsEnabled = false;
                 btn.Opacity = 0.5;
                 bttn = null;
             }
             else
             {
-                txtSpel.Text = "fout";
+                txtSpel.Text = "fout begin opnieuw";
                 bttn.IsEnabled = true;
                 bttn.Opacity = 1;
-                bttn= null;
+                bttn = null;
             }
         }
        
@@ -78,6 +76,5 @@ namespace WpfMatchImages
             txtTimer.Text = time.ToString(@"hh\:mm\:ss\.ff");
         }
     }
-
 }
 
