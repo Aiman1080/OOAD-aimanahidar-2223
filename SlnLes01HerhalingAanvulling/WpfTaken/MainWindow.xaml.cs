@@ -60,7 +60,6 @@ namespace WpfTaken
 
             string taak = txtTaak.Text;
             DateTime selectedDate = DateDatum.SelectedDate.Value;
-
             ListBoxItem listBoxItem = new ListBoxItem();
             listBoxItem.Content = taak + " (deadline: " + selectedDate.ToString("dd/MM/yyyy;") + text;
             lstLijst.Items.Add(listBoxItem);
