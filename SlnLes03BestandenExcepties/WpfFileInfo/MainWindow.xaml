@@ -1,0 +1,13 @@
+﻿<Window x:Class="WpfFileInfo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfFileInfo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="300">
+    <Grid>
+        <Button x:Name="btnBestand" Content="Kies bestand..." HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="48" Width="110" Click="btnBestand_Click"/>
+        <TextBlock x:Name="txtText" HorizontalAlignment="Center" Margin="0,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="280"><Run Text="bestandsnaam:"/><LineBreak/><Run Text="extensie: "/><LineBreak/><Run Text="gemaakt op: "/><LineBreak/><Run Text="mapnaam: "/><LineBreak/><Run Text="aantal woorden:"/><LineBreak/><Run Language="fr-be" Text="meest voorkomend:"/></TextBlock>
+    </Grid>
+</Window>
