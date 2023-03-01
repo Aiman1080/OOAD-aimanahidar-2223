@@ -95,10 +95,9 @@ namespace WpfCompare
                 {
                     string[] words1 = item1.Content.ToString().Split(' ');
                     string[] words2 = item2.Content.ToString().Split(' ');
-
                     for (int j = 0; j < words1.Length && j < words2.Length; j++)
                     {
-                        if (words1[j] != words2[j])
+                        if (words2[j] != words1[j])
                         {
                             item1.Background = Brushes.Red;
                             item2.Background = Brushes.Red;
