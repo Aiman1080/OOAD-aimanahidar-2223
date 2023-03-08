@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfVcardEditor.AboutVenster"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfVcardEditor"
+        mc:Ignorable="d"
+        Title="About vCard Editor" Height="280" Width="210" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Source="img/odisee_2019_nachtblauw_rgb.jpg"/>
+        <Label Grid.Row="1"  Content="Gemaakt door: Ahidar Aiman"/>
+        <Label Grid.Row="2" Content="vak: OO Application Development"/>
+        <Label Grid.Row="3" Content="Academiejaar: 2202 -2023"/>
+        <Button x:Name="btnSluiten" Grid.Row="4" Content="SLUITEN" HorizontalAlignment="center" VerticalAlignment="Center" Padding="5" Click="btnSluiten_Click"/>
+    </Grid>
+</Window>
