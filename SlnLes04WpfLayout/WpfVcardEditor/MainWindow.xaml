@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfVcardEditor"
         mc:Ignorable="d"
-        Title="VCARD EDITOR" Height="600" Width="500">
+        Title="VCARD EDITOR" Height="600" Width="500" MinWidth="500">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,12 +14,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DockPanel LastChildFill="False">
+        <DockPanel LastChildFill="false">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="vCard">
-                    <MenuItem Header="_Open..." />
-                    <MenuItem Header="_Save" />
-                    <MenuItem Header="Save _As..." />
+                    <MenuItem x:Name="clkNew" Header="_New..." Click="clkNew_Click"/>
+                    <MenuItem x:Name="clkOpen" Header="_Open..." Click="clkOpen_Click" />
+                    <MenuItem x:Name="clkSave" Header="_Save" IsEnabled="False" Click="clkSave_Click" />
+                    <MenuItem x:Name="clkSaveAs" Header="Save _As..." Click="clkSaveAs_Click" />
                     <Separator />
                     <MenuItem x:Name="clkExit" Header="E_xit" Click="clkExit_Click"/>
                 </MenuItem>
@@ -28,7 +29,12 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-
+        <DockPanel Grid.Row="2">
+            <Grid>
+                <StatusBar >huidige kaart:(geen geopend)</StatusBar>
+                <StatusBar HorizontalAlignment="Right">percentage ingevuld: n.a.</StatusBar>
+            </Grid>
+        </DockPanel>
         <DockPanel Grid.Row="1">
             <Grid Margin="15">
                 <TabControl SelectedIndex="0">
@@ -57,16 +63,16 @@
                             <Label VerticalAlignment="Center" Grid.Row="5" Content="Privé telefoon"/>
                             <Label Grid.Row="6" Content="Foto"/>
 
-                            <TextBox x:Name="txbVoornaam" Margin="4" Padding="4" VerticalAlignment="Center"  Grid.Column="1"/>
-                            <TextBox x:Name="txbAchternaam" Margin="4" Padding="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1"/>
-                            <DatePicker x:Name="datePicker" Margin="4" Padding="4"  MaxWidth="150" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="txbVoornaam" Margin="4" Padding="4" VerticalAlignment="Center"  Grid.Column="1" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbAchternaam" Margin="4" Padding="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" TextChanged="txt_TextChanged"/>
+                            <DatePicker x:Name="datePicker" Margin="4" Padding="4"  MaxWidth="150" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" SelectedDateChanged="datePicker_SelectedDateChanged"/>
                             <StackPanel Margin="4" VerticalAlignment="Center"  Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
-                                <RadioButton x:Name="rdnVrouw" Content="vrouw"/>
-                                <RadioButton x:Name="rdnMan" Content="man"/>
-                                <RadioButton x:Name="rdnOnbekende" Content="onbekende"/>
+                                <RadioButton x:Name="rdnVrouw" Margin="3" GroupName="geslacht" Content="vrouw"/>
+                                <RadioButton x:Name="rdnMan" Margin="3" GroupName="geslacht" Content="man"/>
+                                <RadioButton x:Name="rdnOnbekende" Margin="3" GroupName="geslacht" Content="onbekende"/>
                             </StackPanel>
-                            <TextBox x:Name="lbxEmail" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
-                            <TextBox x:Name="lbxTelefoon" Margin="4" Padding="4" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Width="202"/>
+                            <TextBox x:Name="txbPriveEmail" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbPriveTelefoon" Margin="4" Padding="4" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Width="202" TextChanged="txt_TextChanged"/>
                             <StackPanel VerticalAlignment="Center"  Orientation="Horizontal" Grid.Column="1" Grid.Row="6">
                                 <Button x:Name="btnSelecteer" Margin="4" Padding="4" Content="SELECTEER..."/>
                                 <Label x:Name="lblSelecteer" Margin="4" Padding="4" Content="(geen geselecteerd)"/>
@@ -93,10 +99,10 @@
                             <Label VerticalAlignment="Center" Grid.Row="2" Content="Werk email"/>
                             <Label VerticalAlignment="Center" Grid.Row="3" Content="Werk telefoon"/>
 
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1"/>
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                            <TextBox x:Name="txbBedrijf" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbJob" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbWerkEmail" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbWerkTelefoon" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" TextChanged="txt_TextChanged"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Sociaal" Margin="0" Padding="10,5">
@@ -116,24 +122,15 @@
                             <Label VerticalAlignment="Center" Grid.Row="2" Content="Instagram"/>
                             <Label VerticalAlignment="Center" Grid.Row="3" Content="Youtube"/>
 
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1"/>
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
-                            <TextBox Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                            <TextBox x:Name="txbLinkdln" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbFacebook" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbInstagram" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" TextChanged="txt_TextChanged"/>
+                            <TextBox x:Name="txbYoutube" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" TextChanged="txt_TextChanged"/>
                         </Grid>
                     </TabItem>
                 </TabControl>
             </Grid>
         </DockPanel>
-        <DockPanel Grid.Row="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Padding="3" Text="huidige kaart:(geen geopend)" Background="#FFF0F0F0"/>
-                <TextBlock Grid.Column="1" Text="percentage ingevuld: n.a." Background="#FFF0F0F0"/>
-            </Grid>
-        </DockPanel>
+        
     </Grid>
 </Window>

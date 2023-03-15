@@ -16,12 +16,18 @@
         </Grid.RowDefinitions>
 
         <Image Source="img/odisee_2019_nachtblauw_rgb.jpg"/>
-        <Label Grid.Row="1"  Content="Gemaakt door: " FontWeight="Bold"/>
-        <Label Grid.Row="1"  Content=" Aiman Ahidar" HorizontalAlignment="Right"/>
-        <Label Grid.Row="2" Content="Vak :" FontWeight="Bold"/>
-        <Label Grid.Row="2" Content="OOApplication Development" HorizontalAlignment="Right"/>
-        <Label Grid.Row="3" Content="AcademieJaar :" FontWeight="Bold"/>
-        <Label Grid.Row="3" Content="2022-2023" HorizontalAlignment="Right"/>
+        <StackPanel Grid.Row="1"   Orientation="Horizontal">
+            <Label Content="Gemaakt door: " FontWeight="Bold"/>
+            <Label Content=" Aiman Ahidar"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2"   Orientation="Horizontal">
+            <Label Content="Vak :" FontWeight="Bold"/>
+            <Label Content="OOApplication Development"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3"   Orientation="Horizontal">
+            <Label Content="AcademieJaar :" FontWeight="Bold"/>
+            <Label Content="2022-2023" />
+        </StackPanel>
         <Button x:Name="btnSluiten" Grid.Row="4" Content="SLUITEN" HorizontalAlignment="center" VerticalAlignment="Center" Padding="5" Click="btnSluiten_Click"/>
     </Grid>
 </Window>
