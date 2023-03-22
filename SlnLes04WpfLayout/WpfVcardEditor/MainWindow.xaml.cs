@@ -56,6 +56,9 @@ namespace WpfVcardEditor
                 string file = openFileDialog.FileName;
                 string[] vcard = File.ReadAllLines(file);
 
+                string filePath = openFileDialog.FileName;
+                txbKaart.Text = $"Huidige kaart: {filePath}";
+
                 foreach (string line in vcard)
                 {
                     if (line.StartsWith("N;"))
@@ -118,8 +121,8 @@ namespace WpfVcardEditor
                     }
                     else if (line.StartsWith("X-SOCIALPROFILE;TYPE=linkedin:"))
                     {
-                        string[] parts = line.Split(';', ':');
-                        txbLinkdln.Text = parts[2] + parts[3];
+                        string hulp = line.Substring(30);
+                        txbLinkdln.Text = hulp;
                     }
                     else if (line.StartsWith("X-SOCIALPROFILE;TYPE=facebook:"))
                     {
@@ -128,13 +131,29 @@ namespace WpfVcardEditor
                     }
                     else if (line.StartsWith("X-SOCIALPROFILE;TYPE=instagram:"))
                     {
-                        string[] parts = line.Split(';', ':');
-                        txbInstagram.Text = parts[2] + parts[3];
+                        string hulp = line.Substring(31);
+                        txbInstagram.Text = hulp;
                     }
                     else if (line.StartsWith("X-SOCIALPROFILE;TYPE=youtube:"))
                     {
                         string hulp = line.Substring(29);
                         txbYoutube.Text = hulp;
+                    }
+                    else if (line.StartsWith("PHOTO;"))
+                    {
+                        string[] parts = line.Split(';', ':');
+                        string type = parts[2];
+                        string info = parts[3];
+                        byte[] image = Convert.FromBase64String(info);
+                        using (MemoryStream memo = new MemoryStream(image))
+                        {
+                            BitmapImage img = new BitmapImage();
+                            img.BeginInit();
+                            img.StreamSource = memo;
+                            img.CacheOption= BitmapCacheOption.OnLoad;
+                            img.EndInit();
+                            txtImage.Source = img;
+                        }
                     }
                 }
             }
@@ -168,6 +187,7 @@ namespace WpfVcardEditor
             {
                 MessageBox.Show("Er is een onbekende fout opgetreden. Neem contact op met de technische ondersteuning.");
             }
+            clkSave.IsEnabled = false;
         }
         private void Save(string fileLocation)
         {
@@ -178,7 +198,7 @@ namespace WpfVcardEditor
                 writer.WriteLine($"FN;CHARSET=UTF-8:{txbVoornaam.Text} {txbAchternaam.Text}");
                 writer.WriteLine($"N;CHARSET=UTF-8:{txbAchternaam.Text};{txbVoornaam.Text};;;");
 
-                if (!string.IsNullOrEmpty(txbJob.Text))
+                if (txbJob.Text != "")
                 {
                     writer.WriteLine($"ROLE:{txbJob.Text}");
                 }
@@ -202,47 +222,47 @@ namespace WpfVcardEditor
                     writer.WriteLine("GENDER:O");
                 }
 
-                if (!string.IsNullOrEmpty(txbPriveEmail.Text))
+                if (txbPriveEmail.Text != "")
                 {
                     writer.WriteLine($"EMAIL;CHARSET=UTF-8;type=HOME:{txbPriveEmail.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbPriveTelefoon.Text))
+                if (txbPriveTelefoon.Text != "")
                 {
                     writer.WriteLine($"TEL;TYPE=HOME:{txbPriveTelefoon.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbBedrijf.Text))
+                if (txbBedrijf.Text != "")
                 {
                     writer.WriteLine($"LABEL;CHARSET=UTF-8;TYPE=WORK:{txbBedrijf.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbWerkEmail.Text))
+                if (txbWerkEmail.Text != "")
                 {
                     writer.WriteLine($"EMAIL;CHARSET=UTF-8;type=WORK:{txbWerkEmail.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbWerkTelefoon.Text))
+                if (txbWerkTelefoon.Text != "")
                 {
                     writer.WriteLine($"TEL;TYPE=WORK:{txbWerkTelefoon.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbLinkdln.Text))
+                if (txbLinkdln.Text != "")
                 {
                     writer.WriteLine($"X-SOCIALPROFILE;TYPE=linkedin:{txbLinkdln.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbFacebook.Text))
+                if (txbFacebook.Text != "")
                 {
                     writer.WriteLine($"X-SOCIALPROFILE;TYPE=facebook:{txbFacebook.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbInstagram.Text))
+                if (txbInstagram.Text != "")
                 {
                     writer.WriteLine($"X-SOCIALPROFILE;TYPE=instagram:{txbInstagram.Text}");
                 }
 
-                if (!string.IsNullOrEmpty(txbYoutube.Text))
+                if (txbYoutube.Text != "")
                 {
                     writer.WriteLine($"X-SOCIALPROFILE;TYPE=youtube:{txbYoutube.Text}");
                 }
@@ -405,6 +425,21 @@ namespace WpfVcardEditor
             catch (Exception ex)
             {
                 MessageBox.Show("Exception: " + ex.Message);
+            }
+        }
+
+        private void btnSelecteer_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Filter = "Image files (*.jpg, *.jpeg, *.png, *.gif) | *.jpg; *.jpeg; *.png; *.gif";
+            Nullable<bool> res = dlg.ShowDialog();
+
+            if (res != null)
+            {
+                string select = dlg.FileName;
+                BitmapImage img = new BitmapImage(new Uri(select));
+                txtImage.Source = img;
+                lblSelecteer.Content = select;
             }
         }
     }

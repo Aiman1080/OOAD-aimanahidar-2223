@@ -31,7 +31,11 @@
         </DockPanel>
         <DockPanel Grid.Row="2">
             <Grid>
-                <StatusBar >huidige kaart:(geen geopend)</StatusBar>
+                <StatusBar  x:Name="stbKaart">
+                    <StatusBarItem>
+                        <TextBlock x:Name="txbKaart"  Text="huidige kaart:(geen geopend)"></TextBlock>
+                    </StatusBarItem>
+                </StatusBar>
                 <StatusBar HorizontalAlignment="Right">percentage ingevuld: n.a.</StatusBar>
             </Grid>
         </DockPanel>
@@ -74,7 +78,7 @@
                             <TextBox x:Name="txbPriveEmail" Margin="4" Padding="4" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" TextChanged="txt_TextChanged"/>
                             <TextBox x:Name="txbPriveTelefoon" Margin="4" Padding="4" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Width="202" TextChanged="txt_TextChanged"/>
                             <StackPanel VerticalAlignment="Center"  Orientation="Horizontal" Grid.Column="1" Grid.Row="6">
-                                <Button x:Name="btnSelecteer" Margin="4" Padding="4" Content="SELECTEER..."/>
+                                <Button x:Name="btnSelecteer" Margin="4" Padding="4" Content="SELECTEER..." Click="btnSelecteer_Click"/>
                                 <Label x:Name="lblSelecteer" Margin="4" Padding="4" Content="(geen geselecteerd)"/>
                             </StackPanel>
                             <Border Grid.Row="7" Grid.Column="1"  Width="100" Height="100" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" HorizontalAlignment="Right">
