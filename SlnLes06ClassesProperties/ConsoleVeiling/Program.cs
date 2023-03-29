@@ -25,6 +25,7 @@ namespace ConsoleVeiling
                 Schoenen.NieuweBod(new Bod(Silva, 600));
                 Schoenen.Gesloten();
 
+                Console.WriteLine();
                 Console.WriteLine($"De volgende biedingen zijn gedaan voor {Schoenen.Naam}:");
                 foreach (var bod in Schoenen.LstBod)
                 {
@@ -53,6 +54,7 @@ namespace ConsoleVeiling
                 Vaas.NieuweBod(new Bod(Silva, 30000));
                 Vaas.Gesloten();
 
+                Console.WriteLine();
                 Console.WriteLine($"De volgende biedingen zijn gedaan voor {Vaas.Naam}:");
                 foreach (var bod in Vaas.LstBod)
                 {
@@ -64,8 +66,11 @@ namespace ConsoleVeiling
             {
                 Console.WriteLine(ex.Message);
             }
+            Console.WriteLine();
             PrintWinners(Schoenen);
+            Console.WriteLine();
             PrintWinners(Vaas);
+            Console.WriteLine();
             PrintKoperItems(Foden);
             PrintKoperItems(Grealish);
             PrintKoperItems(Silva);
