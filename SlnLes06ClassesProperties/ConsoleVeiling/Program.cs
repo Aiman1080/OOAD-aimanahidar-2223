@@ -32,8 +32,8 @@ namespace ConsoleVeiling
                     Console.WriteLine($"{bod.Koper.Naam} bood {bod.Bedrag} euro.");
                 }
 
-                Console.WriteLine("binnen 30 seconden is het klaar.");
-                Thread.Sleep(5000);
+                Console.WriteLine("binnen 10 seconden is het klaar.");
+                Thread.Sleep(10000);
                 Schoenen.Gesloten();
 
                 Bod winnendBod = Schoenen.LstBod.OrderByDescending(b => b.Bedrag).FirstOrDefault();
@@ -65,7 +65,7 @@ namespace ConsoleVeiling
                     Console.WriteLine($"{bod.Koper.Naam} bood {bod.Bedrag} euro.");
                 }
 
-                Console.WriteLine("binnen 30 seconden is het klaar.");
+                Console.WriteLine("binnen 10 seconden is het klaar.");
                 Thread.Sleep(10000);
                 Vaas.Gesloten();
 
