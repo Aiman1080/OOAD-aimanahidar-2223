@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleVeiling
@@ -23,7 +24,6 @@ namespace ConsoleVeiling
                 Schoenen.NieuweBod(new Bod(Grealish, 900));
                 Schoenen.NieuweBod(new Bod(Foden, 880));
                 Schoenen.NieuweBod(new Bod(Silva, 600));
-                Schoenen.Gesloten();
 
                 Console.WriteLine();
                 Console.WriteLine($"De volgende biedingen zijn gedaan voor {Schoenen.Naam}:");
@@ -31,6 +31,10 @@ namespace ConsoleVeiling
                 {
                     Console.WriteLine($"{bod.Koper.Naam} bood {bod.Bedrag} euro.");
                 }
+
+                Console.WriteLine("binnen 30 seconden is het klaar.");
+                Thread.Sleep(5000);
+                Schoenen.Gesloten();
 
                 Bod winnendBod = Schoenen.LstBod.OrderByDescending(b => b.Bedrag).FirstOrDefault();
                 if (winnendBod != null)
@@ -60,6 +64,11 @@ namespace ConsoleVeiling
                 {
                     Console.WriteLine($"{bod.Koper.Naam} bood {bod.Bedrag} euro.");
                 }
+
+                Console.WriteLine("binnen 30 seconden is het klaar.");
+                Thread.Sleep(10000);
+                Vaas.Gesloten();
+
                 Console.WriteLine($"Het winnende bod voor {Vaas.Naam} is {Vaas.LaaststeKoper.Naam} voor {Vaas.LstBod[Vaas.LstBod.Count - 1].Bedrag} euro.");
             }
             catch (Exception ex)
