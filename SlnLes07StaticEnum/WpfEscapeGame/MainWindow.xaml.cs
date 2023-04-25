@@ -189,6 +189,8 @@ namespace WpfEscapeGame
 
         private void lstMyItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnUseOn.IsEnabled = lstRoomItems.SelectedValue != null && lstMyItems.SelectedValue != null;
+            btnCheck.IsEnabled = lstMyItems.SelectedValue != null;
             btnDrop.IsEnabled = lstMyItems.SelectedValue != null;
         }
     }
