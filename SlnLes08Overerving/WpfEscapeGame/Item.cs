@@ -7,16 +7,16 @@ using WpfEscapeGame;
 
 namespace ConsoleKassaTicket
 {
-    internal class Item
+    internal class Item : Actor
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool IsLocked { get; set; } = false;
+        // public string Name { get; set; }
+        // public string Description { get; set; }
+        // public bool IsLocked { get; set; } = false;
         public Item Key { get; set; }
         public Item HiddenItem { get; set; }
         public bool IsPortable { get; set; } = true;
 
-        public Item(string name, bool islocked) 
+        public Item(string name, bool islocked) : base(name, islocked)
         {
             Name = name;
             IsLocked = islocked;

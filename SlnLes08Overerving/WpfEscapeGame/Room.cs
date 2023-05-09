@@ -7,10 +7,10 @@ using WpfEscapeGame;
 
 namespace ConsoleKassaTicket
 {
-    internal class Room 
+    internal class Room : Actor
     {
-        public string Name { get; }
-        public string Description { get; }
+        // public string Name { get; }
+        // public string Description { get; }
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Door> EasyEntryDoors { get; set; } = new List<Door>();
         public string RoomImage { get; set; }
