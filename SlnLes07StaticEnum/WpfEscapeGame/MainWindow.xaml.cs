@@ -28,13 +28,9 @@ namespace WpfEscapeGame
         {
             InitializeComponent();
 
-            // define room
-            Room room1 = new Room(
-                "bedroom",
-                "I seem to be in a medium sized bedroom. There is a locker to the left, a nice rug on the floor, and a bed to the right."
-            );
 
-            // Define items
+
+            // Define items living room
             Item key1 = new Item(
                 "small silver key",
                 "A small silver key, reminds me of one I had in high school.",
@@ -74,17 +70,76 @@ namespace WpfEscapeGame
                 true
             );
 
+            // Define item living room
+            Item clock = new Item("clock", "A large clock.");
+            Item flowerpot = new Item("flowerpot", "I attempted to add some color to the room with this plant, but I'm not sure if I was successful.");
+            Item closet = new Item("closet", "A closet with some basic furnitures, I never really use it.");
+
+            // Define item computer room 
+            Item painting = new Item("painting", "Is that a replica of a famous painting by Picasso?");
+            Item computer = new Item("computer", "The computer I use for both schoolwork and gaming.") ;
+            Item radiator = new Item("radiator", "A radiator, which is necessary to keep the room warm.");
+
+            // Define doors
+            Door BedroomToLivingroom = new Door("groene deur", true, key2);
+            Door LivingroomToBedroom = new Door("groene deur", true);
+            Door LivingroomToComputerroom = new Door("linkse deur", false);
+            Door ComputerroomToLivingroom = new Door("rechtse deur", false);
+            Door LivingroomToNull = new Door("de deur met code", true);
+
+            // Define list
+            List<Door> livingRoomDoors = new List<Door> { LivingroomToBedroom, LivingroomToComputerroom };
+
+            // define room
+            Room bedroom = new Room(
+                "bedroom",
+                "I seem to be in a medium sized bedroom. There is a locker to the left, a nice rug on the floor, and a bed to the right.",
+                BedroomToLivingroom
+            );
+            Room livingRoom = new Room(
+                "living room",
+                "there is sofa on my left, a TV right in front of me and a closet on the right side.",
+                livingRoomDoors
+            );
+            Room computerRoom = new Room(
+                "computer room",
+                "there is a pc on a desk on my left as well as a famous painting on the wall, a radiator in front of me and a bin right next to it.",
+                ComputerroomToLivingroom
+            );
+            Room nullRoom = new Room(
+                "secret room",
+                "I dont know anything about this room...",
+                LivingroomToNull
+            );
+
+            BedroomToLivingroom.AnotherRoom = livingRoom;
+            LivingroomToBedroom.AnotherRoom = bedroom;
+            LivingroomToComputerroom.AnotherRoom = computerRoom;
+            ComputerroomToLivingroom.AnotherRoom = livingRoom;
+            LivingroomToNull.AnotherRoom = nullRoom;
+
             // setup bedroom
-            room1.Items.Add(new Item(
+            bedroom.Items.Add(new Item(
             "floor mat",
             "A bit ragged floor mat, but still one of the most popular designs. "
             ));
-            room1.Items.Add(bed);
-            room1.Items.Add(locker);
-            room1.Items.Add(chair);
-            room1.Items.Add(poster);
+
+            // add
+            bedroom.Items.Add(bed);
+            bedroom.Items.Add(locker);
+            bedroom.Items.Add(chair);
+            bedroom.Items.Add(poster);
+
+            livingRoom.Items.Add(clock);
+            livingRoom.Items.Add(flowerpot);
+            livingRoom.Items.Add(closet);
+
+            computerRoom.Items.Add(painting);
+            computerRoom.Items.Add(computer);
+            computerRoom.Items.Add(radiator);
+
             // start game
-            currentRoom = room1;
+            currentRoom = bedroom;
             lblMessage.Content = "I am awake, but cannot remember who I am!? Must have been a hell of a party last night... ";
             txtRoomDesc.Text = currentRoom.Description;
             UpdateUI();
@@ -97,6 +152,14 @@ namespace WpfEscapeGame
             {
                 lstRoomItems.Items.Add(itm);
             }
+            lstRoomDoors.Items.Clear();
+            foreach (Door d in currentRoom.EasyEntryDoors)
+            {
+                lstRoomDoors.Items.Add(d.Name);
+            }
+
+            string roomName = currentRoom.Name;
+            imgRoom.Source = new BitmapImage(new Uri($"img/{roomName}.png", UriKind.Relative));
         }
 
         private void lstRoomItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,6 +167,8 @@ namespace WpfEscapeGame
             btnCheck.IsEnabled = lstRoomItems.SelectedValue != null; // room item selected
             btnPickUp.IsEnabled = lstRoomItems.SelectedValue != null; // room item selected
             btnUseOn.IsEnabled = lstRoomItems.SelectedValue != null && lstMyItems.SelectedValue != null; // room item and picked up item selected
+            btnOpenWith.IsEnabled = lstRoomDoors.SelectedValue != null && lstMyItems.SelectedValue != null;
+            btnEnter.IsEnabled = lstRoomDoors.SelectedValue != null;
         }
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
@@ -116,15 +181,17 @@ namespace WpfEscapeGame
                 lblMessage.Content = $"{roomItem.Description}It is firmly locked. ";
                 return;
             }
+
             // 3. does it contain a hidden item?
             Item foundItem = roomItem.HiddenItem;
             if (foundItem != null)
             {
                 lblMessage.Content = $"Oh, look, I found a {foundItem.Name}. ";
-            lstMyItems.Items.Add(foundItem);
+                lstMyItems.Items.Add(foundItem);
                 roomItem.HiddenItem = null;
                 return;
             }
+
             // 4. just another item; show description
             lblMessage.Content = roomItem.Description;
         }
@@ -134,6 +201,7 @@ namespace WpfEscapeGame
             // 1. find both items
             Item myItem = (Item)lstMyItems.SelectedItem;
             Item roomItem = (Item)lstRoomItems.SelectedItem;
+
             // 2. item doesn't fit
             if (roomItem.Key != myItem)
             {
@@ -155,6 +223,7 @@ namespace WpfEscapeGame
                 }
                 return;
             }
+
             // 3. item fits; other item unlocked
             roomItem.IsLocked = false;
             roomItem.Key = null;
@@ -192,6 +261,51 @@ namespace WpfEscapeGame
             btnUseOn.IsEnabled = lstRoomItems.SelectedValue != null && lstMyItems.SelectedValue != null;
             btnCheck.IsEnabled = lstMyItems.SelectedValue != null;
             btnDrop.IsEnabled = lstMyItems.SelectedValue != null;
+        }
+        private Door CheckDoor()
+        {
+            string door = lstRoomDoors.SelectedItem.ToString();
+            Door d = new Door();
+
+            for (int i = 0; i < currentRoom.EasyEntryDoors.Count; i++)
+            {
+                if (currentRoom.EasyEntryDoors[i].Name == door)
+                {
+                    d = currentRoom.EasyEntryDoors[i];
+                    return d;
+                }
+            }
+            return d;
+        }
+        private void btnOpenWith_Click(object sender, RoutedEventArgs e)
+        {
+            Item i = (Item)lstMyItems.SelectedItem;
+            Door d = CheckDoor();
+
+            if (d.Key != i)
+            {
+                lblMessage.Content = RandomMessageGenerator.GetRandomMessage(MessageType.Keys);
+                return;
+            }
+
+            d.IsLocked = false;
+
+            lblMessage.Content = "The door is unlocked!";
+        }
+
+        private void btnEnter_Click(object sender, RoutedEventArgs e)
+        {
+            Door dr = CheckDoor();
+
+            if (!dr.IsLocked)
+            {
+                currentRoom = dr.AnotherRoom;
+                UpdateUI();
+            }
+            else
+            {
+                lblMessage.Content = "the door is locked.";
+            }
         }
     }
 }

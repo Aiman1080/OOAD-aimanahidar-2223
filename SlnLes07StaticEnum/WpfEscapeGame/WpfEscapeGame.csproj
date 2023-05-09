@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Door.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="RandomMessageGenerator.cs" />
     <Compile Include="Room.cs" />
@@ -103,9 +104,9 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\ss-bedroom.png" />
-    <Resource Include="img\ss-computer.png" />
-    <Resource Include="img\ss-living.png" />
+    <Resource Include="img\bedroom.png" />
+    <Resource Include="img\computer.png" />
+    <Resource Include="img\living.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
