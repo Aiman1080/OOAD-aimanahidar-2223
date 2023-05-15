@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfEscapeGame.Properties
+namespace WpfGebruiker.Properties
 {
 
 

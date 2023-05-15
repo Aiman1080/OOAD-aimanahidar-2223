@@ -7,7 +7,7 @@ using WpfEscapeGame;
 
 namespace ConsoleKassaTicket
 {
-    internal class Room 
+    internal class Room
     {
         public string Name { get; }
         public string Description { get; }

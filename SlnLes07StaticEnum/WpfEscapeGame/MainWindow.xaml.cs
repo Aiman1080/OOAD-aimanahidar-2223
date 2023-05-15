@@ -148,9 +148,9 @@ namespace WpfEscapeGame
         private void UpdateUI()
         {
             lstRoomItems.Items.Clear();
-            foreach (Item i in currentRoom.Items)
+            foreach (Item itm in currentRoom.Items)
             {
-                lstRoomItems.Items.Add(i);
+                lstRoomItems.Items.Add(itm);
             }
             lstRoomDoors.Items.Clear();
             foreach (Door d in currentRoom.EasyEntryDoors)
@@ -295,12 +295,11 @@ namespace WpfEscapeGame
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            Door d = (Door)lstRoomDoors.SelectedItem;
             Door dr = CheckDoor();
 
-            if (!d.IsLocked)
+            if (!dr.IsLocked)
             {
-                currentRoom = d.AnotherRoom;
+                currentRoom = dr.AnotherRoom;
                 UpdateUI();
             }
             else

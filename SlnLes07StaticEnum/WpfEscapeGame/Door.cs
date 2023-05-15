@@ -17,8 +17,7 @@ namespace WpfEscapeGame
         // constructor
         public Door() { }
 
-        public Door(string nm, bool il)
-        {
+        public Door(string nm, bool il) {
             Name = nm;
             IsLocked= il;
         }
@@ -28,5 +27,9 @@ namespace WpfEscapeGame
             Key = k;
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

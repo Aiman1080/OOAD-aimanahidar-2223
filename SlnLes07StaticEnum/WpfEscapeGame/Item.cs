@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfEscapeGame;
 
 namespace ConsoleKassaTicket
 {
@@ -15,12 +14,6 @@ namespace ConsoleKassaTicket
         public Item Key { get; set; }
         public Item HiddenItem { get; set; }
         public bool IsPortable { get; set; } = true;
-
-        public Item(string name, bool islocked) 
-        {
-            Name = name;
-            IsLocked = islocked;
-        }
         public Item(string name, string desc)
         {
             Name = name;
