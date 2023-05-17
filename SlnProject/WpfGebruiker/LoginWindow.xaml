@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGebruiker"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="LoginWindow" Height="360" Width="350">
+    <Grid Background="#FFBCD9F7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+        <Image Source="img/login.png" Grid.Row="0" Grid.ColumnSpan="2" Stretch="Uniform" MaxHeight="180"/>
+        <Label Grid.Row="1" Content="Email :" FontSize="16" Foreground="#FF17047B"/>
+        <Label Grid.Row="2" Content="Paswoord :" FontSize="16" Foreground="#FF17047B"/>
+        <TextBox x:Name="txtGebruikersnaam" Grid.Row="1" Grid.Column="1" Margin="10px" FontSize="16" BorderBrush="#FF1349E9"/>
+        <PasswordBox x:Name="txtPaswoord" Grid.Row="2" Grid.Column="1" Margin="10px" FontSize="16" Background="White" BorderBrush="#FF1349E9"/>
+        <Button x:Name="btnLogin" Grid.Row="3" Grid.Column="1" Content="Login" Width="100" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Background="#FF579EE8" Padding="5px" Click="btnLogin_Click" BorderBrush="#FF07067E"/>
     </Grid>
 </Window>

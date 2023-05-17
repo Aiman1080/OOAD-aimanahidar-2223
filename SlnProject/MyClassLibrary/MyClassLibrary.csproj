@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,16 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Foto.cs" />
+    <Compile Include="Gebruiker.cs" />
+    <Compile Include="GetrokkenVoertuig.cs" />
+    <Compile Include="MotorVoertuig.cs" />
+    <Compile Include="Ontlening.cs" />
+    <Compile Include="Voertuig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WpfGebruiker\WpfGebruiker.csproj">
-      <Project>{b374c12e-9411-4c1f-aa69-1cf3cdbbc48c}</Project>
-      <Name>WpfGebruiker</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

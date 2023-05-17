@@ -8,7 +8,7 @@ namespace MyClassLibrary
 {
     internal class Foto
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public byte[] Data { get; set; }
         public int Voertuig_id { get; set; }
     }
