@@ -26,7 +26,7 @@ namespace MyClassLibrary
         public byte[] Profielfoto { get; set; }
         public Geslacht Geslacht { get; set; }
 
-        public Gebruiker (SqlDataReader reader)
+        public Gebruiker(SqlDataReader reader)
         {
             this.Id = Convert.ToInt32(reader["id"]);
             this.Voornaam = Convert.ToString(reader["voornaam"]);

@@ -26,6 +26,19 @@ namespace WpfGebruiker
             InitializeComponent();
         }
 
+        private void btnHome_Click(object sender, object e)
+        {
+            Main.Content = new PageHome();
+        }
 
+        private void btnOntlening_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new PageOntleningen();
+        }
+
+        private void btnVoertuig_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new PageVoertuigen();
+        }
     }
 }

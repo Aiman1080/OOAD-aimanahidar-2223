@@ -10,7 +10,7 @@ namespace MyClassLibrary
     {
         public int? Gewicht { get; set; }
         public int? Maxbelasting { get; set; }
-        public int Afmeting { get; set; }
+        public string Afmeting { get; set; }
         public bool? Geremd { get; set; }
     }
 }

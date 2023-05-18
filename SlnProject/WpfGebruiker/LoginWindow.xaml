@@ -16,7 +16,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-
         </Grid.RowDefinitions>
         <Image Source="img/login.png" Grid.Row="0" Grid.ColumnSpan="2" Stretch="Uniform" MaxHeight="180"/>
         <Label Grid.Row="1" Content="Email :" FontSize="16" Foreground="#FF17047B"/>
