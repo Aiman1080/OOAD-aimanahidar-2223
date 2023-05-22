@@ -12,8 +12,8 @@ namespace MyClassLibrary
 {
     public enum Geslacht
     {
-        Man,
-        Vrouw
+        Man = 0,
+        Vrouw = 1,
     }
     public class Gebruiker
     {
@@ -48,6 +48,21 @@ namespace MyClassLibrary
                 comm.Parameters.AddWithValue("password", password);
                 SqlDataReader reader = comm.ExecuteReader();
                 while (reader.Read())
+                {
+                    return new Gebruiker(reader);
+                }
+                return null;
+            }
+        }
+        public static Gebruiker GetById(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand("SELECT * FROM Gebruiker WHERE id = @id", conn);
+                comm.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = comm.ExecuteReader();
+                if (reader.Read())
                 {
                     return new Gebruiker(reader);
                 }

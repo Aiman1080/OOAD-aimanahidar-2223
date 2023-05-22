@@ -1,0 +1,59 @@
+﻿<Page x:Class="WpfGebruiker.PageDetailsGetrokken"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfGebruiker"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="500"
+      Title="PageDetailsGetrokken">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Lichte vrachtwagen" FontSize="25" Grid.ColumnSpan="2" FontWeight="Bold"/>
+        <Image x:Name="photo1" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  Margin="10" />
+        <Image x:Name="photo2" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"  Margin="10" />
+        <Image x:Name="photo3" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"  Margin="10" />
+        <Label x:Name="lblBeschrijving" Content="Beschrijving" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" FontWeight="Bold" />
+
+        <Label x:Name="lblMerk" Content="" Grid.Column="0" Grid.Row="4" Margin="10" />
+        <Label x:Name="lblModel" Content="" Grid.Column="0" Grid.Row="5" Margin="10" />
+        <Label x:Name="lblGewicht" Content="" Grid.Column="0" Grid.Row="6" Margin="10" />
+        <Label x:Name="lblBelasting" Content="" Grid.Column="0" Grid.Row="7" Margin="10" />
+        <Label x:Name="lblGeremd" Content="" Grid.Column="1" Grid.Row="4" Margin="10" />
+        <Label x:Name="lblAfmeting" Content="" Grid.Column="1" Grid.Row="5" Margin="10" />
+        <Label x:Name="lblBouwjaar" Content="" Grid.Column="1" Grid.Row="6" Margin="10" />
+        <Label x:Name="lblEigenaar" Content="" Grid.Column="1" Grid.Row="7" Margin="10" />
+
+        <Label Content="Dit voertuig lenen?" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3" FontSize="16" FontWeight="Bold" />
+        <Label Content="Van:" Grid.Column="0" Grid.Row="9" Margin="10" />
+        <DatePicker Grid.Column="1" Grid.Row="9" Margin="10" />
+        <Label Content="Tot:" Grid.Column="0" Grid.Row="10" Margin="10" />
+        <DatePicker Grid.Column="1" Grid.Row="10" Margin="10" />
+
+        <Label Content="Bericht aan eigenaar:" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="10" />
+        <TextBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="10" />
+        <Button Content="Bevestigen" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Right" Margin="10" />
+    </Grid>
+</Page>

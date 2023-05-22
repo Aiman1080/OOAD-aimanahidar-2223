@@ -39,31 +39,50 @@ namespace WpfGebruiker
             Button button = (Button)sender;
             Voertuig voertuig = (Voertuig)button.Tag;
 
-            //NavigationService.Navigate(new VehicleDetailsPage(voertuig));
+            if (voertuig.Type == 1)
+            {
+                PageDetailsGemotoriseerd pageDetails = new PageDetailsGemotoriseerd(voertuig);
+                Details window = new Details();
+                window.detailspage.Navigate(pageDetails);
+                window.Show();
+            }
+            else if (voertuig.Type == 2)
+            {
+                PageDetailsGetrokken trailerDetails = new PageDetailsGetrokken(voertuig);
+                Details window = new Details();
+                window.detailspage.Navigate(trailerDetails);
+                window.Show();
+            }
         }
 
         private List<Voertuig> FilterVehicleData()
         {
+            List<Voertuig> filteredVoertuigen = new List<Voertuig>();
+
+            if (cbGemotoriseerd.IsChecked == false && cbGetrokken.IsChecked == false)
+            {
+                return filteredVoertuigen;
+            }
+
             List<Voertuig> voertuigen = Voertuig.GetAll();
 
-            bool isGemotoriseerdChecked = cbGemotoriseerd.IsChecked == true;
-            bool isGetrokkenChecked = cbGetrokken.IsChecked == true;
-
-            if (isGemotoriseerdChecked && !isGetrokkenChecked)
+            if (cbGemotoriseerd?.IsChecked == true)
             {
-                voertuigen = voertuigen.Where(v => v.Type == 1).ToList();
+                filteredVoertuigen.AddRange(voertuigen.Where(v => v.Type == 1));
             }
 
-            if (!isGemotoriseerdChecked && isGetrokkenChecked)
+            if (cbGetrokken?.IsChecked == true)
             {
-                voertuigen = voertuigen.Where(v => v.Type == 2).ToList();
+                filteredVoertuigen.AddRange(voertuigen.Where(v => v.Type == 2));
             }
 
-            return voertuigen;
+            return filteredVoertuigen;
         }
 
         private void DisplayVehicleData(List<Voertuig> voertuigen)
         {
+            if (voertuigen == null) return;
+
             VehicleWrapPanel.Children.Clear();
 
             foreach (var voertuig in voertuigen)
@@ -107,7 +126,6 @@ namespace WpfGebruiker
                 };
                 textPanel.Children.Add(name);
 
-                // Add a blank TextBlock for spacing
                 textPanel.Children.Add(new TextBlock { Height = 20 });
 
                 textPanel.Children.Add(new TextBlock { Text = string.IsNullOrEmpty(voertuig.Merk) ? "Er is geen merk" : "Merk: " + voertuig.Merk });
@@ -124,9 +142,9 @@ namespace WpfGebruiker
                 {
                     Content = infoImage,
                     Tag = voertuig,
-                    HorizontalAlignment = HorizontalAlignment.Right, // aligner le bouton à droite
+                    HorizontalAlignment = HorizontalAlignment.Right,
                     VerticalAlignment = VerticalAlignment.Bottom,
-                    Margin = new Thickness(0, 0, 10, 0) // déplacer le bouton vers la droite
+                    Margin = new Thickness(0, 0, 10, 0)
                 };
                 button.Click += InfoButton_Click;
 
@@ -138,6 +156,7 @@ namespace WpfGebruiker
         }
         private void LoadVehicleData()
         {
+            if (VehicleWrapPanel == null) return;
             List<Voertuig> voertuigen = FilterVehicleData();
             DisplayVehicleData(voertuigen);
         }

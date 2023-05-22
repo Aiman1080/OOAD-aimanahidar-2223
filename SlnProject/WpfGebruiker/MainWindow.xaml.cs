@@ -24,6 +24,7 @@ namespace WpfGebruiker
         public MainWindow()
         {
             InitializeComponent();
+            Main.Content = new PageHome();
         }
 
         private void btnHome_Click(object sender, object e)
