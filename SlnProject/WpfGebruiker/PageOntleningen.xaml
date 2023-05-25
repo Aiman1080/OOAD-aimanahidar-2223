@@ -5,10 +5,61 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfGebruiker"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="PageOntleningen">
 
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Mijn ontlenning" FontSize="18">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="63*" />
+                        <ColumnDefinition Width="286*"/>
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Door mij ontleed:" FontSize="18" FontWeight="Bold" Margin="10,10,10,10" Grid.ColumnSpan="2"/>
+                    <ListBox x:Name="lbxOntlening" Grid.Row="1" Grid.RowSpan="2" Margin="10px" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btnAnuleren" Grid.Column="2" Grid.Row="2" Content="Anuleren" FontSize="16" Margin="10,10,10,10" Padding="5px" Click="btnAnuleren_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Aanvraag" FontSize="18">
+                <Grid Margin="10px">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="31*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="630*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Content="Inkomende aanvragen:" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="3" Margin="0,0,0,44" Grid.RowSpan="2"/>
+                    <ListBox x:Name="lbxAanvraag" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="0,0,0,44" SelectionChanged="lbxAanvraag_SelectionChanged"/>
+                    <Label Grid.Row="4" Content="Details van de aanvraag:" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="3"/>
+
+                    <Label x:Name="lblVoertuig" Content="Voertuig: " Grid.Row="4" FontSize="14" Grid.ColumnSpan="3" Margin="0,44,0,0" Grid.RowSpan="2"/>
+                    <Label x:Name="lblPeriode" Content="Periode: " Grid.Row="5" FontSize="14" Grid.ColumnSpan="3" Margin="0,45,0,44" Grid.RowSpan="3"/>
+                    <Label x:Name="lblAanvrager" Content="Aanvrager: " Grid.Row="7" FontSize="14" Grid.ColumnSpan="3"/>
+                    <Label x:Name="lblBericht" Content="Bericht" Grid.Row="7" FontSize="14" Grid.ColumnSpan="3" Margin="0,44,0,0" Grid.RowSpan="2"/>
+
+                    <Button x:Name="btnAccepteren" Content="Accepteren" Grid.Column="3" Grid.Row="1" Margin="10,10,10,10"  FontSize="16" Click="btnAccepteren_Click"/>
+                    <Button x:Name="btnAfwijzen" Content="Afwijzen" Grid.Column="3" Grid.Row="2" Margin="10,10,10,10" FontSize="16" Click="btnAfwijzen_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

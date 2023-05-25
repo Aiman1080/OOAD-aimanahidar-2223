@@ -21,25 +21,29 @@ namespace WpfGebruiker
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private Gebruiker gebruiker;
+
+        public MainWindow(Gebruiker gebruiker)
         {
             InitializeComponent();
-            Main.Content = new PageHome();
+            this.gebruiker = gebruiker;
+            Main.Content = new PageHome(gebruiker);
         }
 
         private void btnHome_Click(object sender, object e)
         {
-            Main.Content = new PageHome();
+            Main.Content = new PageHome(gebruiker);
         }
 
         private void btnOntlening_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new PageOntleningen();
+            Main.Content = new PageOntleningen(gebruiker);
         }
 
         private void btnVoertuig_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new PageVoertuigen();
         }
+
     }
 }

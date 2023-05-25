@@ -22,9 +22,14 @@ namespace WpfGebruiker
     /// </summary>
     public partial class PageDetailsGemotoriseerd : Page
     {
-        public PageDetailsGemotoriseerd(Voertuig voertuig)
+        private Voertuig voertuig;
+        private Gebruiker gebruiker;
+        public PageDetailsGemotoriseerd(Voertuig voertuig, Gebruiker gebruiker)
         {
             InitializeComponent();
+
+            this.voertuig = voertuig;
+            this.gebruiker = gebruiker;
 
             lblBeschrijving.Content = $"Beschrijving: {voertuig.Beschrijving}";
             lblMerk.Content = $"Merk: {voertuig.Merk}";
@@ -74,6 +79,49 @@ namespace WpfGebruiker
             }
             image.Freeze();
             return image;
+        }
+
+        private void btnBevestigen_Click(object sender, RoutedEventArgs e)
+        {
+            if (!FormChekking())
+            {
+                return;
+            }
+
+            Ontlening newOntlening = new Ontlening();
+            newOntlening.Vanaf = dateVan.SelectedDate.Value;
+            newOntlening.Tot = dateTot.SelectedDate.Value;
+            newOntlening.Bericht = txtBericht.Text;
+            newOntlening.Status = Status.InAanvraag;
+            newOntlening.Voertuig_Id = voertuig.Id;
+            newOntlening.Aanvragen_Id = gebruiker.Id;
+
+            Ontlening.Insert(newOntlening);
+
+            MessageBox.Show("De toevoeging is met succes voltooid!");
+        }
+        private bool FormChekking()
+        {
+            DateTime? selectedStartDate = dateVan.SelectedDate;
+            DateTime? selectedEndDate = dateTot.SelectedDate;
+
+            if (selectedStartDate.HasValue && selectedEndDate.HasValue)
+            {
+                if (selectedEndDate > selectedStartDate)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("de tot kan niet eerder zijn dan de van.");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecteer de data Van en Tot.");
+                return false;
+            }
         }
     }
 }

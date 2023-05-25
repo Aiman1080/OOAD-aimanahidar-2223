@@ -59,5 +59,32 @@ namespace MyClassLibrary
             }
             return voertuigen;
         }
+        public static Voertuig GetVoertuigById(int voertuigId)
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand("SELECT * FROM Voertuig WHERE Id=@id", conn);
+                comm.Parameters.AddWithValue("@id", voertuigId);
+                SqlDataReader reader = comm.ExecuteReader();
+                if (reader.Read())
+                {
+                    int type = Convert.ToInt32(reader["Type"]);
+                    if (type == 1)
+                    {
+                        return new MotorVoertuig(reader);
+                    }
+                    else if (type == 2)
+                    {
+                        return new GetrokkenVoertuig(reader);
+                    }
+                    else
+                    {
+                        return new Voertuig(reader);
+                    }
+                }
+                return null;
+            }
+        }
     }
 }

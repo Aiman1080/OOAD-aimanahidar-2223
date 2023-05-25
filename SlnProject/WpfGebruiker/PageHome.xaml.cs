@@ -23,9 +23,11 @@ namespace WpfGebruiker
     /// </summary>
     public partial class PageHome : Page
     {
-        public PageHome()
+        private Gebruiker gebruiker;
+        public PageHome(Gebruiker gebruiker)
         {
             InitializeComponent();
+            this.gebruiker = gebruiker;
             LoadVehicleData();
         }
 
@@ -41,14 +43,14 @@ namespace WpfGebruiker
 
             if (voertuig.Type == 1)
             {
-                PageDetailsGemotoriseerd pageDetails = new PageDetailsGemotoriseerd(voertuig);
+                PageDetailsGemotoriseerd pageDetails = new PageDetailsGemotoriseerd(voertuig, gebruiker);
                 Details window = new Details();
                 window.detailspage.Navigate(pageDetails);
                 window.Show();
             }
             else if (voertuig.Type == 2)
             {
-                PageDetailsGetrokken trailerDetails = new PageDetailsGetrokken(voertuig);
+                PageDetailsGetrokken trailerDetails = new PageDetailsGetrokken(voertuig, gebruiker);
                 Details window = new Details();
                 window.detailspage.Navigate(trailerDetails);
                 window.Show();

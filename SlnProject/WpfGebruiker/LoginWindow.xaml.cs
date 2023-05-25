@@ -36,12 +36,13 @@ namespace WpfGebruiker
             Gebruiker gebruiker = Gebruiker.GetLogin(email, GetSHA256Hash(password));
             if (gebruiker != null)
             {
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new MainWindow(gebruiker); // Pass the gebruiker object as a parameter
                 mainWindow.Show();
                 this.Close();
-            } else
+            }
+            else
             {
-                MessageBox.Show("de gebruikersnaam / paswoord combinatie is niet correct");
+                MessageBox.Show("De gebruikersnaam / paswoord combinatie is niet correct");
             }
         }
         public string GetSHA256Hash(string input)

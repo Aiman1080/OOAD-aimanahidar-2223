@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGebruiker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -15,7 +15,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -27,6 +27,6 @@
         <Button x:Name="btnVoertuig" Content="Voertuigen" Grid.Row="3" Margin="10" Padding="3" FontSize="20" Click="btnVoertuig_Click"/>
 
         
-        <Frame x:Name="Main" NavigationUIVisibility="Hidden"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="4"/>
+        <Frame x:Name="Main" NavigationUIVisibility="Hidden"  Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="5"/>
     </Grid>
 </Window>
