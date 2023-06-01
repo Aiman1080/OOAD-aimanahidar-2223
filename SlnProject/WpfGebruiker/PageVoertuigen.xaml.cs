@@ -180,6 +180,8 @@ namespace WpfGebruiker
         {
             Voertuig selectedVehicle = (Voertuig)((Button)sender).Tag;
 
+            Ontlening.DeleteByVoertuigId(selectedVehicle.Id);
+
             Foto.DeleteByVoertuigId(selectedVehicle.Id);
 
             Voertuig.Delete(selectedVehicle.Id);

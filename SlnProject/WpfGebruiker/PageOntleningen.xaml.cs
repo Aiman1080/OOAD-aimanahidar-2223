@@ -41,9 +41,8 @@ namespace WpfGebruiker
             lbxOntlening.Items.Clear();
             foreach (var ontlening in OntleningenList)
             {
-                Gebruiker aanvraag = Gebruiker.GetById(ontlening.Aanvragen_Id);
                 string voertuigNaam = Voertuig.GetVoertuigById(ontlening.Voertuig_Id)?.Name ?? "Onbekend";
-                string ontleningText = $"{voertuigNaam} -> {ontlening.Vanaf.ToString("dd-MM-yyyy")} tot {ontlening.Tot.ToString("dd-MM-yyyy")} : {aanvraag.Voornaam} (Status: {ontlening.Status.ToString()})";
+                string ontleningText = $"{voertuigNaam} -> {ontlening.Vanaf.ToString("dd-MM-yyyy")} tot {ontlening.Tot.ToString("dd-MM-yyyy")} (Status: {ontlening.Status.ToString()})";
                 lbxOntlening.Items.Add(ontleningText);
             }
         }
@@ -56,8 +55,9 @@ namespace WpfGebruiker
             lbxAanvraag.Items.Clear();
             foreach (var aanvraag in aanvragen)
             {
+                Gebruiker persoon = Gebruiker.GetById(aanvraag.Aanvragen_Id);
                 string voertuigNaam = Voertuig.GetVoertuigById(aanvraag.Voertuig_Id)?.Name ?? "Onbekend";
-                string aanvraagText = $"{voertuigNaam} -> {aanvraag.Vanaf.ToString("dd-MM-yyyy")} tot {aanvraag.Tot.ToString("dd-MM-yyyy")} (Status: {aanvraag.Status.ToString()})";
+                string aanvraagText = $"{voertuigNaam} -> {aanvraag.Vanaf.ToString("dd-MM-yyyy")} tot {aanvraag.Tot.ToString("dd-MM-yyyy")}: {persoon.Voornaam} {persoon.Achternaam} (Status: {aanvraag.Status.ToString()})";
                 lbxAanvraag.Items.Add(aanvraagText);
             }
         }

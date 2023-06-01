@@ -22,6 +22,7 @@ namespace WpfGebruiker
     /// </summary>
     public partial class ToevoegenGemotoriseerd : Window
     {
+        /*Alle variablen*/
         private Gebruiker gebruiker;
         private Voertuig selectedVoertuig;
         private bool edit;
@@ -119,13 +120,13 @@ namespace WpfGebruiker
                 {
                     switch (selectedItemBrandstof.Content.ToString().ToLower())
                     {
-                        case "Benzine":
+                        case "benzine":
                             motorVoertuig.Brandstof = Brandstof.Benzine;
                             break;
-                        case "Diesel":
+                        case "diesel":
                             motorVoertuig.Brandstof = Brandstof.Diesel;
                             break;
-                        case "LPG":
+                        case "lpg":
                             motorVoertuig.Brandstof = Brandstof.LPG;
                             break;
                         default:

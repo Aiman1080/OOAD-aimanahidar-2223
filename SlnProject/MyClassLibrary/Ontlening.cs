@@ -58,6 +58,16 @@ namespace MyClassLibrary
             }
             return ontleningen;
         }
+        public static void DeleteByVoertuigId(int voertuigId)
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand("DELETE FROM Ontlening WHERE voertuig_Id = @voertuig_Id", conn);
+                comm.Parameters.AddWithValue("@voertuig_Id", voertuigId);
+                comm.ExecuteNonQuery();
+            }
+        }
 
         public static void Delete(int id)
         {

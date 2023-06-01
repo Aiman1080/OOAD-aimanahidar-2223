@@ -11,6 +11,7 @@ namespace MyClassLibrary
 {
     public class Foto
     {
+        /*Alle property*/
         public int Id { get; set; } 
         public byte[] Data { get; set; }
         public int Voertuig_id { get; set; }

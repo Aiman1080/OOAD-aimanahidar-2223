@@ -29,6 +29,7 @@ namespace WpfGebruiker
         {
             InitializeComponent();
 
+            /*Om al de informatie te tonen van de voertuig*/
             this.voertuig = voertuig;
             this.gebruiker = gebruiker;
             this.eigenaar = Gebruiker.GetById(voertuig.Eigenaar.Id);

@@ -22,6 +22,7 @@ namespace WpfGebruiker
     /// </summary>
     public partial class ToevoegenGetrokken : Window
     {
+        /*Alle variablen*/
         private Gebruiker gebruiker;
         private Voertuig selectedVoertuig;
         private bool edit;
@@ -43,6 +44,7 @@ namespace WpfGebruiker
             }
         }
 
+        /*elementen tonen voor de update*/
         private void LoadInfo()
         {
             if (selectedVoertuig is GetrokkenVoertuig getrokkenVoertuig)
@@ -75,6 +77,7 @@ namespace WpfGebruiker
             }
         }
 
+        /*Aanmaken van een nieuwe voertuig*/
         private void CreateVoertuig()
         {
             if (selectedVoertuig is GetrokkenVoertuig getrokkenVoertuig)
