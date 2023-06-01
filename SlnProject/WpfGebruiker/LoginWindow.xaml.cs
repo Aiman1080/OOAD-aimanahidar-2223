@@ -28,6 +28,7 @@ namespace WpfGebruiker
             InitializeComponent();
         }
 
+        /*Om naar de homepage te kunnen gaan*/
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string email = txtGebruikersnaam.Text;
@@ -36,7 +37,7 @@ namespace WpfGebruiker
             Gebruiker gebruiker = Gebruiker.GetLogin(email, GetSHA256Hash(password));
             if (gebruiker != null)
             {
-                MainWindow mainWindow = new MainWindow(gebruiker); // Pass the gebruiker object as a parameter
+                MainWindow mainWindow = new MainWindow(gebruiker); 
                 mainWindow.Show();
                 this.Close();
             }
@@ -45,6 +46,8 @@ namespace WpfGebruiker
                 MessageBox.Show("De gebruikersnaam / paswoord combinatie is niet correct");
             }
         }
+
+        /*genereren met chatgpt*/
         public string GetSHA256Hash(string input)
         {
             using (SHA256 sha256Hash = SHA256.Create())

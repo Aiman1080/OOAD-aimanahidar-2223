@@ -27,22 +27,26 @@ namespace WpfGebruiker
         {
             InitializeComponent();
             this.gebruiker = gebruiker;
+            /*direct naar de homepage gaan*/
             Main.Content = new PageHome(gebruiker);
         }
 
+        /*Om naar de PageHome te gaan*/
         private void btnHome_Click(object sender, object e)
         {
             Main.Content = new PageHome(gebruiker);
         }
 
+        /*Om naar de PageOntleningen te gaan*/
         private void btnOntlening_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new PageOntleningen(gebruiker);
         }
 
+        /*Om naar de PageVoertuigen te gaan*/
         private void btnVoertuig_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new PageVoertuigen();
+            Main.Content = new PageVoertuigen(gebruiker);
         }
 
     }

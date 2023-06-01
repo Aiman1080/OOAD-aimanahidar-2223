@@ -17,6 +17,7 @@ namespace MyClassLibrary
     }
     public class Gebruiker
     {
+        /*Alle property*/
         public int Id { get; set; }
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
@@ -26,6 +27,10 @@ namespace MyClassLibrary
         public byte[] Profielfoto { get; set; }
         public Geslacht Geslacht { get; set; }
 
+        /*Alle constructoren*/
+        public Gebruiker()
+        {
+        }
         public Gebruiker(SqlDataReader reader)
         {
             this.Id = Convert.ToInt32(reader["id"]);

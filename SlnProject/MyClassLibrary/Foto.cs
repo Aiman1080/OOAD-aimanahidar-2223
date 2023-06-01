@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace MyClassLibrary
         public byte[] Data { get; set; }
         public int Voertuig_id { get; set; }
 
+        /*Alle constructoren*/
         private static Foto ReadFoto(SqlDataReader reader)
         {
             Foto foto = new Foto();
@@ -41,28 +43,39 @@ namespace MyClassLibrary
             }
             return fotos;
         }
-
-        public static void InsertFoto(Foto foto)
+        public static void DeleteByVoertuigId(int voertuigId)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
             {
                 conn.Open();
 
-                SqlCommand comm = new SqlCommand("INSERT INTO Foto (Data, Voertuig_id) VALUES (@data, @voertuigId)", conn);
-                comm.Parameters.AddWithValue("@data", foto.Data);
-                comm.Parameters.AddWithValue("@voertuigId", foto.Voertuig_id);
+                SqlCommand comm = new SqlCommand("DELETE FROM Foto WHERE Voertuig_id=@voertuigId", conn);
+                comm.Parameters.AddWithValue("@voertuigId", voertuigId);
                 comm.ExecuteNonQuery();
             }
         }
 
-        public static void DeleteFoto(int id)
+        public void UploadImage()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
             {
                 conn.Open();
 
-                SqlCommand comm = new SqlCommand("DELETE FROM Foto WHERE Id=@id", conn);
-                comm.Parameters.AddWithValue("@id", id);
+                SqlCommand comm = new SqlCommand("INSERT INTO Foto (Data, Voertuig_id) VALUES (@Data, @voertuigId)", conn);
+                comm.Parameters.AddWithValue("@Data", this.Data);
+                comm.Parameters.AddWithValue("@voertuigId", this.Voertuig_id);
+                comm.ExecuteNonQuery();
+            }
+        }
+        public void UpdateImage()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand("UPDATE Foto SET Data=@Data WHERE Voertuig_id=@voertuigId AND Id=@Id", conn);
+                comm.Parameters.AddWithValue("@Data", this.Data);
+                comm.Parameters.AddWithValue("@voertuigId", this.Voertuig_id);
+                comm.Parameters.AddWithValue("@Id", this.Id);
                 comm.ExecuteNonQuery();
             }
         }

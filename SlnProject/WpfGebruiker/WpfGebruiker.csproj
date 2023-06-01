@@ -56,6 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PopupWindow.xaml.cs">
+      <DependentUpon>PopupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToevoegenGemotoriseerd.xaml.cs">
+      <DependentUpon>ToevoegenGemotoriseerd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToevoegenGetrokken.xaml.cs">
+      <DependentUpon>ToevoegenGetrokken.xaml</DependentUpon>
+    </Compile>
     <Page Include="Details.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,6 +108,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageVoertuigen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToevoegenGemotoriseerd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToevoegenGetrokken.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,6 +181,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\delete.png" />
+    <Resource Include="img\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\toevoegen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\kruis.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

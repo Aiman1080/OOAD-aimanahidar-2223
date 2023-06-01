@@ -24,10 +24,16 @@ namespace WpfGebruiker
     {
         private Voertuig voertuig;
         private Gebruiker gebruiker;
+        private Gebruiker eigenaar;
         public PageDetailsGetrokken(Voertuig voertuig, Gebruiker gebruiker)
         {
             InitializeComponent();
 
+            this.voertuig = voertuig;
+            this.gebruiker = gebruiker;
+            this.eigenaar = Gebruiker.GetById(voertuig.Eigenaar.Id);
+
+            lblNaam.Content = voertuig.Name;
             lblBeschrijving.Content = $"Beschrijving: {voertuig.Beschrijving}";
             lblMerk.Content = $"Merk: {voertuig.Merk}";
             lblModel.Content = $"Model: {voertuig.Model}";
@@ -62,6 +68,8 @@ namespace WpfGebruiker
                 photo3.Source = LoadImage(fotos[2].Data);
             }
         }
+
+        /*genereren met chatgpt*/
         private ImageSource LoadImage(byte[] imageData)
         {
             if (imageData == null || imageData.Length == 0) return null;
@@ -80,6 +88,7 @@ namespace WpfGebruiker
             return image;
         }
 
+        /*bevestig reserveringsaanvraag*/
         private void btnBevestigen_Click(object sender, RoutedEventArgs e)
         {
             if (!FormChekking())
@@ -93,12 +102,14 @@ namespace WpfGebruiker
             newOntlening.Bericht = txtBericht.Text;
             newOntlening.Status = Status.InAanvraag;
             newOntlening.Voertuig_Id = voertuig.Id;
-            newOntlening.Aanvragen_Id = gebruiker.Id;
+            newOntlening.Aanvragen_Id = eigenaar.Id;
 
             Ontlening.Insert(newOntlening);
 
             MessageBox.Show("De toevoeging is met succes voltooid!");
         }
+
+        /*Controleer de datums*/
         private bool FormChekking()
         {
             DateTime? selectedStartDate = dateVan.SelectedDate;

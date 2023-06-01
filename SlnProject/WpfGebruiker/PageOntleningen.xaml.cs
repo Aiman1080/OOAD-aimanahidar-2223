@@ -22,33 +22,34 @@ namespace WpfGebruiker
     public partial class PageOntleningen : Page
     {
         private List<Ontlening> OntleningenList = new List<Ontlening>();
-        private List<Gebruiker> GebruikersList = new List<Gebruiker>();
+        private List<Ontlening> aanvragen = new List<Ontlening>();
 
         private Gebruiker gebruiker;
         public PageOntleningen(Gebruiker gebruiker)
         {
             InitializeComponent();
             this.gebruiker = gebruiker;
-            LoadOntleningen();
-            LoadAanvragen();
+            ToonOntlening();
+            ToonAanvragen();
         }
 
-        private void LoadOntleningen()
+        /*alle ontleningen tonen*/
+        private void ToonOntlening()
         {
             OntleningenList = Ontlening.GetAll(gebruiker.Id).OrderByDescending(o => o.Vanaf).ToList();
 
             lbxOntlening.Items.Clear();
             foreach (var ontlening in OntleningenList)
             {
+                Gebruiker aanvraag = Gebruiker.GetById(ontlening.Aanvragen_Id);
                 string voertuigNaam = Voertuig.GetVoertuigById(ontlening.Voertuig_Id)?.Name ?? "Onbekend";
-                string ontleningText = $"{voertuigNaam} -> {ontlening.Vanaf.ToString("dd-MM-yyyy")} tot {ontlening.Tot.ToString("dd-MM-yyyy")} (Status: {ontlening.Status.ToString()})";
+                string ontleningText = $"{voertuigNaam} -> {ontlening.Vanaf.ToString("dd-MM-yyyy")} tot {ontlening.Tot.ToString("dd-MM-yyyy")} : {aanvraag.Voornaam} (Status: {ontlening.Status.ToString()})";
                 lbxOntlening.Items.Add(ontleningText);
             }
         }
 
-        private List<Ontlening> aanvragen = new List<Ontlening>();
-
-        private void LoadAanvragen()
+        /*Alle aanvragen tonen*/
+        private void ToonAanvragen()
         {
             aanvragen = Ontlening.GetAllByVoertuigOwnerId(gebruiker.Id).OrderByDescending(a => a.Vanaf).ToList();
 
@@ -61,6 +62,7 @@ namespace WpfGebruiker
             }
         }
 
+        /*om de ontleningen te verwijderen*/
         private void btnAnuleren_Click(object sender, RoutedEventArgs e)
         {
             int selectedIndex = lbxOntlening.SelectedIndex;
@@ -68,10 +70,11 @@ namespace WpfGebruiker
             {
                 Ontlening selectedOntlening = OntleningenList[selectedIndex];
                 Ontlening.Delete(selectedOntlening.Id);
-                LoadOntleningen();
+                ToonOntlening();
             }
         }
 
+        /*Om de status te veranderen naar Goedgekeurd*/
         private void btnAccepteren_Click(object sender, RoutedEventArgs e)
         {
             string selectedItem = lbxAanvraag.SelectedItem as string;
@@ -81,10 +84,11 @@ namespace WpfGebruiker
                 Ontlening selectedOntlening = aanvragen[selectedIndex];
                 selectedOntlening.Status = Status.Goedgekeurd;
                 Ontlening.Update(selectedOntlening);
-                LoadAanvragen();
+                ToonAanvragen();
             }
         }
 
+        /*Om de status te veranderen naar Verworpen*/
         private void btnAfwijzen_Click(object sender, RoutedEventArgs e)
         {
             string selectedItem = lbxAanvraag.SelectedItem as string;
@@ -94,29 +98,33 @@ namespace WpfGebruiker
                 Ontlening selectedOntlening = aanvragen[selectedIndex];
                 selectedOntlening.Status = Status.Verworpen;
                 Ontlening.Update(selectedOntlening);
-                LoadAanvragen();
+                ToonAanvragen();
             }
         }
 
+        /*Om de informatie te tonen*/
         private void lbxAanvraag_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedItem = lbxAanvraag.SelectedItem.ToString();
-            if (!string.IsNullOrEmpty(selectedItem))
+            if (lbxAanvraag.SelectedItem != null)
             {
-                int selectedIndex = lbxAanvraag.SelectedIndex;
-                Ontlening selectedOntlening = aanvragen[selectedIndex];
+                string selectedItem = lbxAanvraag.SelectedItem.ToString();
+                if (!string.IsNullOrEmpty(selectedItem))
+                {
+                    int selectedIndex = lbxAanvraag.SelectedIndex;
+                    Ontlening selectedOntlening = aanvragen[selectedIndex];
 
-                string voertuigNaam = Voertuig.GetVoertuigById(selectedOntlening.Voertuig_Id)?.Name ?? "Onbekend";
-                lblVoertuig.Content = $"Voertuig: {voertuigNaam}";
+                    string voertuigNaam = Voertuig.GetVoertuigById(selectedOntlening.Voertuig_Id)?.Name ?? "Onbekend";
+                    lblVoertuig.Content = $"Voertuig: {voertuigNaam}";
 
-                string periodeText = $"{selectedOntlening.Vanaf.ToString("dd-MM-yyyy")} tot {selectedOntlening.Tot.ToString("dd-MM-yyyy")}";
-                lblPeriode.Content = $"Periode: {periodeText}";
+                    string periodeText = $"{selectedOntlening.Vanaf.ToString("dd-MM-yyyy")} tot {selectedOntlening.Tot.ToString("dd-MM-yyyy")}";
+                    lblPeriode.Content = $"Periode: {periodeText}";
 
-                Gebruiker aanvrager = Gebruiker.GetById(selectedOntlening.Aanvragen_Id);
-                string aanvragerNaam = aanvrager != null ? $"{aanvrager.Voornaam} {aanvrager.Achternaam}" : "Onbekend";
-                lblAanvrager.Content = $"Aanvrager: {aanvragerNaam}";
+                    Gebruiker aanvrager = Gebruiker.GetById(selectedOntlening.Aanvragen_Id);
+                    string aanvragerNaam = aanvrager != null ? $"{aanvrager.Voornaam} {aanvrager.Achternaam}" : "Onbekend";
+                    lblAanvrager.Content = $"Aanvrager: {aanvragerNaam}";
 
-                lblBericht.Content = $"Bericht: {selectedOntlening.Bericht}";
+                    lblBericht.Content = $"Bericht: {selectedOntlening.Bericht}";
+                }
             }
         }
     }

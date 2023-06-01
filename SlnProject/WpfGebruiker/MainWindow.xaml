@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGebruiker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
-    <Grid>
+        Title="MainWindow" Height="500" Width="820">
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -15,18 +15,16 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Button x:Name="btnHome" Content="Home" Grid.Row="1" Margin="10" Padding="3" FontSize="20" ButtonBase.Click="btnHome_Click"/>
-        <Button x:Name="btnOntlening" Content="Ontlening" Grid.Row="2" Margin="10" Padding="3" FontSize="20" Click="btnOntlening_Click"/>
-        <Button x:Name="btnVoertuig" Content="Voertuigen" Grid.Row="3" Margin="10" Padding="3" FontSize="20" Click="btnVoertuig_Click"/>
+        <Button x:Name="btnHome" Content="Home" Grid.Row="0" Margin="10" Padding="3" FontSize="20" ButtonBase.Click="btnHome_Click" Background="Black" Foreground="White" />
+        <Button x:Name="btnOntlening" Content="Ontlening" Grid.Row="1" Margin="10" Padding="3" FontSize="20" Click="btnOntlening_Click" Background="Black" Foreground="White" />
+        <Button x:Name="btnVoertuig" Content="Voertuigen" Grid.Row="2" Margin="10" Padding="3" FontSize="20" Click="btnVoertuig_Click" Background="Black" Foreground="White" />
 
-        
         <Frame x:Name="Main" NavigationUIVisibility="Hidden"  Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="5"/>
     </Grid>
 </Window>

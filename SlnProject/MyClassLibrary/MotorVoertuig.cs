@@ -21,12 +21,25 @@ namespace MyClassLibrary
     }
     public class MotorVoertuig : Voertuig
     {
+        /*Alle property*/
         public Transmissie? Transmissie { get; set; }
         public Brandstof? Brandstof { get; set; }
-        public MotorVoertuig(SqlDataReader reader) :base(reader)
+
+        /*Alle constructoren*/
+        public MotorVoertuig()
         {
-            this.Transmissie = (Transmissie?)Convert.ToInt32(reader["Transmissie"]);
-            this.Brandstof = (Brandstof?)Convert.ToInt32(reader["Brandstof"]);
+        }
+        public MotorVoertuig(SqlDataReader reader) : base(reader)
+        {
+            if (reader["Transmissie"] != DBNull.Value)
+            {
+                this.Transmissie = (Transmissie)Convert.ToInt32(reader["Transmissie"]);
+            }
+
+            if (reader["Brandstof"] != DBNull.Value)
+            {
+                this.Brandstof = (Brandstof)Convert.ToInt32(reader["Brandstof"]);
+            }
         }
     }
 

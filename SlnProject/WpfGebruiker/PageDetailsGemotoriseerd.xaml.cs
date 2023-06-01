@@ -28,9 +28,11 @@ namespace WpfGebruiker
         {
             InitializeComponent();
 
+            /*Om al de informatie te tonen van de voertuig*/
             this.voertuig = voertuig;
             this.gebruiker = gebruiker;
 
+            lblNaam.Content = voertuig.Name;
             lblBeschrijving.Content = $"Beschrijving: {voertuig.Beschrijving}";
             lblMerk.Content = $"Merk: {voertuig.Merk}";
             lblModel.Content = $"Model: {voertuig.Model}";
@@ -63,6 +65,8 @@ namespace WpfGebruiker
                 photo3.Source = LoadImage(fotos[2].Data);
             }
         }
+
+        /*genereren met chatgpt*/
         private ImageSource LoadImage(byte[] imageData)
         {
             if (imageData == null || imageData.Length == 0) return null;
@@ -81,6 +85,7 @@ namespace WpfGebruiker
             return image;
         }
 
+        /*bevestig reserveringsaanvraag*/
         private void btnBevestigen_Click(object sender, RoutedEventArgs e)
         {
             if (!FormChekking())
@@ -100,6 +105,8 @@ namespace WpfGebruiker
 
             MessageBox.Show("De toevoeging is met succes voltooid!");
         }
+
+        /*Controleer de datums*/
         private bool FormChekking()
         {
             DateTime? selectedStartDate = dateVan.SelectedDate;
@@ -113,13 +120,13 @@ namespace WpfGebruiker
                 }
                 else
                 {
-                    MessageBox.Show("de tot kan niet eerder zijn dan de van.");
+                    MessageBox.Show("de (Tot) kan niet eerder zijn dan de (Van).");
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show("Selecteer de data Van en Tot.");
+                MessageBox.Show("Selecteer (Van) en (Tot).");
                 return false;
             }
         }

@@ -1,0 +1,24 @@
+﻿<Window x:Class="WpfGebruiker.PopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfGebruiker"
+        mc:Ignorable="d"
+        Title="PopupWindow" Height="120" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Kies voor gemotoriseerd of getrokken:" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="16" />
+        <Button x:Name="btnGemotoriseerd" Grid.Row="1" Margin="10" Content="gemotoriseerd" Click="btnGemotoriseerd_Click" Foreground="White" Background="Black"/>
+        <Button x:Name="btnGetrokken" Grid.Column="1" Grid.Row="1" Margin="10" Content="getrokken" Click="btnGetrokken_Click" Background="Black" Foreground="White"/>
+
+    </Grid>
+</Window>

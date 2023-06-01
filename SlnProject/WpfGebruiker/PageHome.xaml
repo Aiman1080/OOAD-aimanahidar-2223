@@ -21,9 +21,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Label Content="Type :" Grid.Column="0" FontSize="18"/>
-        <CheckBox x:Name="cbGemotoriseerd"  Content="Gemotoriseerd " Grid.Column="1" FontSize="18" VerticalAlignment="Center" IsChecked="True" Checked="CheckBox_Changed" Unchecked="CheckBox_Changed"/>
-        <CheckBox x:Name="cbGetrokken" Content="Getrokken" Grid.Column="2" FontSize="18" VerticalAlignment="Center" IsChecked="True" Checked="CheckBox_Changed" Unchecked="CheckBox_Changed"/>
+        <Label Content="Type :" Grid.Column="0" FontSize="20" FontWeight="Bold"/>
+        <CheckBox x:Name="cbGemotoriseerd"  Content="Gemotoriseerd " Grid.Column="1" FontSize="18" VerticalAlignment="Center" IsChecked="True" Checked="CheckBox_Changed" Unchecked="CheckBox_Changed" FontWeight="Bold"/>
+        <CheckBox x:Name="cbGetrokken" Content="Getrokken" Grid.Column="2" FontSize="18" VerticalAlignment="Center" IsChecked="True" Checked="CheckBox_Changed" Unchecked="CheckBox_Changed" FontWeight="Bold"/>
 
         <ScrollViewer Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
             <WrapPanel x:Name="VehicleWrapPanel">

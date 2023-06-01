@@ -28,14 +28,16 @@ namespace WpfGebruiker
         {
             InitializeComponent();
             this.gebruiker = gebruiker;
-            LoadVehicleData();
+            ToonVoertuig();
         }
 
+        /*kiezen welke categorie*/
         private void CheckBox_Changed(object sender, RoutedEventArgs e)
         {
-            LoadVehicleData();
+            ToonVoertuig();
         }
 
+        /*naar de detailpage te gaan van getrokken of motor voertuigen*/
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -57,7 +59,8 @@ namespace WpfGebruiker
             }
         }
 
-        private List<Voertuig> FilterVehicleData()
+        /*Filter de voertuigen*/
+        private List<Voertuig> FilterType()
         {
             List<Voertuig> filteredVoertuigen = new List<Voertuig>();
 
@@ -67,6 +70,8 @@ namespace WpfGebruiker
             }
 
             List<Voertuig> voertuigen = Voertuig.GetAll();
+
+            voertuigen = voertuigen.Where(v => v.Eigenaar.Id != this.gebruiker.Id).ToList();
 
             if (cbGemotoriseerd?.IsChecked == true)
             {
@@ -81,7 +86,8 @@ namespace WpfGebruiker
             return filteredVoertuigen;
         }
 
-        private void DisplayVehicleData(List<Voertuig> voertuigen)
+        /*maak de voertuig*/
+        private void MaakVoertuig(List<Voertuig> voertuigen)
         {
             if (voertuigen == null) return;
 
@@ -130,8 +136,8 @@ namespace WpfGebruiker
 
                 textPanel.Children.Add(new TextBlock { Height = 20 });
 
-                textPanel.Children.Add(new TextBlock { Text = string.IsNullOrEmpty(voertuig.Merk) ? "Er is geen merk" : "Merk: " + voertuig.Merk });
-                textPanel.Children.Add(new TextBlock { Text = string.IsNullOrEmpty(voertuig.Model) ? "Er is geen model" : "Model: " + voertuig.Model });
+                textPanel.Children.Add(new TextBlock { Text = string.IsNullOrEmpty(voertuig.Merk) ? "Merk: onbekend" : "Merk: " + voertuig.Merk });
+                textPanel.Children.Add(new TextBlock { Text = string.IsNullOrEmpty(voertuig.Model) ? "Model: onbekend" : "Model: " + voertuig.Model });
                 card.Children.Add(textPanel);
 
                 Image infoImage = new Image
@@ -146,7 +152,8 @@ namespace WpfGebruiker
                     Tag = voertuig,
                     HorizontalAlignment = HorizontalAlignment.Right,
                     VerticalAlignment = VerticalAlignment.Bottom,
-                    Margin = new Thickness(0, 0, 10, 0)
+                    Margin = new Thickness(0, 0, 10, 0),
+                    Background = Brushes.White
                 };
                 button.Click += InfoButton_Click;
 
@@ -156,12 +163,16 @@ namespace WpfGebruiker
                 VehicleWrapPanel.Children.Add(border);
             }
         }
-        private void LoadVehicleData()
+
+        /*Toon alle voertuigen*/
+        private void ToonVoertuig()
         {
             if (VehicleWrapPanel == null) return;
-            List<Voertuig> voertuigen = FilterVehicleData();
-            DisplayVehicleData(voertuigen);
+            List<Voertuig> voertuigen = FilterType();
+            MaakVoertuig(voertuigen);
         }
+
+        /*genereren met chatgpt*/
         private ImageSource ConvertBytesToImageSource(byte[] imageData)
         {
             BitmapImage biImg = new BitmapImage();

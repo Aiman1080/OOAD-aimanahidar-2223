@@ -18,6 +18,7 @@ namespace MyClassLibrary
     }
     public class Ontlening
     {
+        /*Alle property*/
         public int Id { get; set; }
         public DateTime Vanaf { get; set; }
         public DateTime Tot { get; set; }
@@ -26,6 +27,7 @@ namespace MyClassLibrary
         public int Voertuig_Id { get; set; } 
         public int Aanvragen_Id { get; set; }
 
+        /*Alle constructoren*/
         public Ontlening() { }
 
         public Ontlening(SqlDataReader reader)

@@ -9,10 +9,17 @@ namespace MyClassLibrary
 {
     public class GetrokkenVoertuig : Voertuig
     {
+        /*Alle property*/
         public int? Gewicht { get; set; }
         public int? Maxbelasting { get; set; }
         public string Afmeting { get; set; }
         public bool? Geremd { get; set; }
+
+        /*Alle constructoren*/
+        public GetrokkenVoertuig()
+        {
+
+        }
         public GetrokkenVoertuig(SqlDataReader reader) : base(reader)
         {
             this.Gewicht = reader["Gewicht"] == DBNull.Value ? null : (int?)Convert.ToInt32(reader["Gewicht"]);
