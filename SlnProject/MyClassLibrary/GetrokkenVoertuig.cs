@@ -18,7 +18,6 @@ namespace MyClassLibrary
         /*Alle constructoren*/
         public GetrokkenVoertuig()
         {
-
         }
         public GetrokkenVoertuig(SqlDataReader reader) : base(reader)
         {

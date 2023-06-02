@@ -11,7 +11,7 @@ namespace MyClassLibrary
 {
     public class Foto
     {
-        /*Alle property*/
+        /*Alle proprieties*/
         public int Id { get; set; } 
         public byte[] Data { get; set; }
         public int Voertuig_id { get; set; }
@@ -65,18 +65,6 @@ namespace MyClassLibrary
                 SqlCommand comm = new SqlCommand("INSERT INTO Foto (Data, Voertuig_id) VALUES (@Data, @voertuigId)", conn);
                 comm.Parameters.AddWithValue("@Data", this.Data);
                 comm.Parameters.AddWithValue("@voertuigId", this.Voertuig_id);
-                comm.ExecuteNonQuery();
-            }
-        }
-        public void UpdateImage()
-        {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connStr"].ConnectionString))
-            {
-                conn.Open();
-                SqlCommand comm = new SqlCommand("UPDATE Foto SET Data=@Data WHERE Voertuig_id=@voertuigId AND Id=@Id", conn);
-                comm.Parameters.AddWithValue("@Data", this.Data);
-                comm.Parameters.AddWithValue("@voertuigId", this.Voertuig_id);
-                comm.Parameters.AddWithValue("@Id", this.Id);
                 comm.ExecuteNonQuery();
             }
         }

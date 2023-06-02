@@ -88,12 +88,13 @@ namespace WpfGebruiker
         /*bevestig reserveringsaanvraag*/
         private void btnBevestigen_Click(object sender, RoutedEventArgs e)
         {
+            Ontlening newOntlening = new Ontlening();
+
             if (!FormChekking())
             {
                 return;
             }
 
-            Ontlening newOntlening = new Ontlening();
             newOntlening.Vanaf = dateVan.SelectedDate.Value;
             newOntlening.Tot = dateTot.SelectedDate.Value;
             newOntlening.Bericht = txtBericht.Text;

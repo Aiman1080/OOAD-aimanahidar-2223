@@ -21,7 +21,7 @@ namespace WpfGebruiker
     /// </summary>
     public partial class PageOntleningen : Page
     {
-        private List<Ontlening> OntleningenList = new List<Ontlening>();
+        private List<Ontlening> ontleningenList = new List<Ontlening>();
         private List<Ontlening> aanvragen = new List<Ontlening>();
 
         private Gebruiker gebruiker;
@@ -29,17 +29,18 @@ namespace WpfGebruiker
         {
             InitializeComponent();
             this.gebruiker = gebruiker;
-            ToonOntlening();
+
             ToonAanvragen();
+            ToonOntlening();
         }
 
         /*alle ontleningen tonen*/
         private void ToonOntlening()
         {
-            OntleningenList = Ontlening.GetAll(gebruiker.Id).OrderByDescending(o => o.Vanaf).ToList();
+            ontleningenList = Ontlening.GetAll(gebruiker.Id).OrderByDescending(o => o.Vanaf).ToList();
 
             lbxOntlening.Items.Clear();
-            foreach (var ontlening in OntleningenList)
+            foreach (var ontlening in ontleningenList)
             {
                 string voertuigNaam = Voertuig.GetVoertuigById(ontlening.Voertuig_Id)?.Name ?? "Onbekend";
                 string ontleningText = $"{voertuigNaam} -> {ontlening.Vanaf.ToString("dd-MM-yyyy")} tot {ontlening.Tot.ToString("dd-MM-yyyy")} (Status: {ontlening.Status.ToString()})";
@@ -66,9 +67,9 @@ namespace WpfGebruiker
         private void btnAnuleren_Click(object sender, RoutedEventArgs e)
         {
             int selectedIndex = lbxOntlening.SelectedIndex;
-            if (selectedIndex >= 0 && selectedIndex < OntleningenList.Count)
+            if (selectedIndex >= 0 && selectedIndex < ontleningenList.Count)
             {
-                Ontlening selectedOntlening = OntleningenList[selectedIndex];
+                Ontlening selectedOntlening = ontleningenList[selectedIndex];
                 Ontlening.Delete(selectedOntlening.Id);
                 ToonOntlening();
             }
@@ -112,6 +113,17 @@ namespace WpfGebruiker
                 {
                     int selectedIndex = lbxAanvraag.SelectedIndex;
                     Ontlening selectedOntlening = aanvragen[selectedIndex];
+                    DateTime endDate = selectedOntlening.Tot;
+                    if (endDate < DateTime.Now)
+                    {
+                        btnAfwijzen.IsEnabled = false;
+                        btnAccepteren.IsEnabled = false;
+                    }
+                    else
+                    {
+                        btnAfwijzen.IsEnabled = true;
+                        btnAccepteren.IsEnabled = true;
+                    }
 
                     string voertuigNaam = Voertuig.GetVoertuigById(selectedOntlening.Voertuig_Id)?.Name ?? "Onbekend";
                     lblVoertuig.Content = $"Voertuig: {voertuigNaam}";
@@ -124,6 +136,28 @@ namespace WpfGebruiker
                     lblAanvrager.Content = $"Aanvrager: {aanvragerNaam}";
 
                     lblBericht.Content = $"Bericht: {selectedOntlening.Bericht}";
+                }
+            }
+        }
+
+        private void lbxOntlening_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbxOntlening.SelectedItem != null)
+            {
+                string selectedItem = lbxOntlening.SelectedItem.ToString();
+                if (!string.IsNullOrEmpty(selectedItem))
+                {
+                    int selectedIndex = lbxOntlening.SelectedIndex;
+                    Ontlening selectedOntlening = ontleningenList[selectedIndex];
+                    DateTime endDate = selectedOntlening.Tot;
+                    if (endDate < DateTime.Now)
+                    {
+                        btnAnuleren.IsEnabled = false;
+                    }
+                    else
+                    {
+                        btnAnuleren.IsEnabled = true;
+                    }
                 }
             }
         }
