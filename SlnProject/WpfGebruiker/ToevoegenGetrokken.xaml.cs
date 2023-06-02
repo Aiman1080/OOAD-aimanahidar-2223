@@ -109,7 +109,7 @@ namespace WpfGebruiker
         /*Alles opslaan update en create*/
         private void btnOpslaan_Click(object sender, RoutedEventArgs e)
         {
-            if (FormValidation())
+            if (FormValidatie())
             {
                 CreateVoertuig();
                 if (edit == true)
@@ -254,7 +254,7 @@ namespace WpfGebruiker
         }
 
         /*Formvalidatie: naam en beschrijving zijn verplichte velden.*/
-        private bool FormValidation()
+        private bool FormValidatie()
         {
             if (string.IsNullOrEmpty(txtNaam.Text))
             {
